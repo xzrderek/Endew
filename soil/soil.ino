@@ -17,6 +17,7 @@ BlynkTimer timer;
 #define soilPower 7
 
 int moistureLevel = 0; //value for storing moisture value
+int minMoisture = 420;
 
 //Rather than powering the sensor through the 3.3V or 5V pins,
 //we'll use a digital pin to power the sensor. This will
@@ -26,11 +27,11 @@ int moistureLevel = 0; //value for storing moisture value
 
 int getMoisture()
 {
-    digitalWrite(soilPower, HIGH); //turn D7 "On"
-    delay(10);                     //wait 10 milliseconds
-    moistureLevel = analogRead(soilPin);     //Read the SIG value form sensor
-    digitalWrite(soilPower, LOW);  //turn D7 "Off"
-    return moistureLevel;                    //send current moisture value
+    digitalWrite(soilPower, HIGH);       //turn D7 "On"
+    delay(10);                           //wait 10 milliseconds
+    moistureLevel = analogRead(soilPin); //Read the SIG value form sensor
+    digitalWrite(soilPower, LOW);        //turn D7 "Off"
+    return moistureLevel;                //send current moisture value
 }
 
 void printStatus()
@@ -38,7 +39,7 @@ void printStatus()
     Serial.print("Soil Moisture = ");
     //get soil moisture value from the function below and print it
     Serial.println(getMoisture());
-    if (getMoisture() < 420)
+    if (getMoisture() < minMoisture)
     {
         Serial.print("Dry soil");
     }
@@ -54,9 +55,15 @@ void printStatus()
 
 void myTimerEvent()
 {
-  float moistureLevel = getMoisture(); // try not to send >10 values/second
-  
-  Blynk.virtualWrite(V5, moistureLevel); // send data to app
+    float moistureLevel = getMoisture(); // try not to send >10 values/second
+
+    Blynk.virtualWrite(V5, moistureLevel); // send data to app
+
+    if (moisturelevel <= minMoisture) // If moisturelevel is equal to or below min value
+    {
+        Blynk.notify("Dry plant! Water your plant!"); // Send email to water plant
+        // Blynk.email("email here", "Endew Alert", "Dry plant! Water your plant!"); //uncomment for spam emails
+    }
 }
 
 void setup()
