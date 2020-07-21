@@ -9,10 +9,10 @@ void setup()
 {
   Serial.begin(9600);
   myStepper.setSpeed(6);
-  A5deg = 360;
-  A4deg = 180;
-  //A3deg = 90;
-  //A2deg = 0;
+  A5deg = 270; //org yelow
+  A4deg = 180; //green blue
+  A3deg = 90; //blck brown
+  A2deg = 0; //white red
 }
 
 int readData()
@@ -22,25 +22,71 @@ int readData()
   Serial.println(A5light);
   Serial.println(A4light);
   
-  //A3 = analogRead(A3);
-  //A2 = analogRead(A2);
+  A3light = analogRead(A3);
+  A2light = analogRead(A2);
+  Serial.println(A3light);
+  Serial.println(A2light);
 }
 
 int getStepsToMove() 
 {
-  int maxLight = max(A5light, A4light);
-  int minLight = min(A5light, A4light);
-  int deg1, deg2;
+  int maxLight1 = max(A5light, A4light);
+  int minLight1 = min(A5light, A4light);
+  int maxLight2 = max(A3light, A2light);
+  int minLight2 = min(A3light, A2light);
+
+  int finalMax = max (maxLight1, maxLight2);
+  int finalMin = min (minLight1, minLight2);
+  int deg1, deg2; 
   
-  if (maxLight == A5light) {
+  if (finalMax == A5light) {
     deg1 = A5deg;
-    if (minLight == A4light) {
+    if (finalMin == A4light) {
       deg2 = A4deg;
     }
+    if(finalMin == A3light) {
+      deg2 = A3deg;
+    }
+    if(finalMin == A2light) {
+      deg2 = A2deg;
+    }
   }
-  if (maxLight == A4light) {
+  
+   if (finalMax == A4light) {
     deg1 = A4deg;
-    if (minLight == A5light) {
+    if (finalMin == A5light) {
+      deg2 = A5deg;
+    }
+    if(finalMin == A3light) {
+      deg2 = A3deg;
+    }
+    if(finalMin == A2light) {
+      deg2 = A2deg;
+    }
+  }
+  
+   if (finalMax == A3light) {
+    deg1 = A3deg;
+    if (finalMin == A4light) {
+      deg2 = A4deg;
+    }
+    if(finalMin == A5light) {
+      deg2 = A5deg;
+    }
+    if(finalMin == A2light) {
+      deg2 = A2deg;
+    }
+  }
+
+   if (finalMax == A2light) {
+    deg1 = A2deg;
+    if (finalMin == A4light) {
+      deg2 = A4deg;
+    }
+    if(finalMin == A3light) {
+      deg2 = A3deg;
+    }
+    if(finalMin == A5light) {
       deg2 = A5deg;
     }
   }
