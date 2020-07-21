@@ -17,7 +17,7 @@ BlynkTimer timer;
 #define soilPower 7
 
 int moistureLevel = 0; //value for storing moisture value
-int minMoisture = 420;
+int minMoisture = 420; //value for dryness
 
 //Rather than powering the sensor through the 3.3V or 5V pins,
 //we'll use a digital pin to power the sensor. This will
@@ -34,7 +34,7 @@ int getMoisture()
     return moistureLevel;                //send current moisture value
 }
 
-void printStatus()
+void printStatus() //never used, only for debugging purposes
 {
     Serial.print("Soil Moisture = ");
     //get soil moisture value from the function below and print it
