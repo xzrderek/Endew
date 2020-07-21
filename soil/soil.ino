@@ -13,8 +13,8 @@ char pass[] = "x";
 
 BlynkTimer timer;
 
-#define soilPin A1;
-#define soilPower 7;
+#define soilPin A1
+#define soilPower 7
 
 int moistureLevel = 0; //value for storing moisture value
 
@@ -28,17 +28,17 @@ int getMoisture()
 {
     digitalWrite(soilPower, HIGH); //turn D7 "On"
     delay(10);                     //wait 10 milliseconds
-    val = analogRead(soilPin);     //Read the SIG value form sensor
+    moistureLevel = analogRead(soilPin);     //Read the SIG value form sensor
     digitalWrite(soilPower, LOW);  //turn D7 "Off"
-    return val;                    //send current moisture value
+    return moistureLevel;                    //send current moisture value
 }
 
 void printStatus()
 {
     Serial.print("Soil Moisture = ");
     //get soil moisture value from the function below and print it
-    Serial.println(readSoil());
-    if (readSoil() < 420)
+    Serial.println(getMoisture());
+    if (getMoisture() < 420)
     {
         Serial.print("Dry soil");
     }
