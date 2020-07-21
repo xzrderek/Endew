@@ -59,7 +59,7 @@ void myTimerEvent()
 
     Blynk.virtualWrite(V5, moistureLevel); // send data to app
 
-    if (moisturelevel <= minMoisture) // If moisturelevel is equal to or below min value
+    if (moistureLevel <= minMoisture) // If moisturelevel is equal to or below min value
     {
         Blynk.notify("Dry plant! Water your plant!"); // Send email to water plant
         // Blynk.email("email here", "Endew Alert", "Dry plant! Water your plant!"); //uncomment for spam emails
