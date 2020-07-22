@@ -70,9 +70,10 @@ int getStepsToMove()
 
 void loop()
 {
-  readData();
-  int steps = getStepsToMove();
-  Serial.println("steps: " + String(steps));
-  myStepper.step(steps);
+  myStepper.step(1059);
+  delay(5000);
+  myStepper.step(509);
+  delay(5000);
+  myStepper.step(1528);
   delay(5000);
 }
