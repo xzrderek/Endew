@@ -70,10 +70,11 @@ int getStepsToMove()
 
 void loop()
 {
-  myStepper.step(1059);
-  delay(5000);
-  myStepper.step(509);
   delay(5000);
   myStepper.step(1528);
+  delay(5000);
+  myStepper.step(1100);
+  delay(5000);
+  myStepper.step(600);
   delay(5000);
 }
