@@ -64,6 +64,16 @@ void myTimerEvent()
         Blynk.notify("Dry plant! Water your plant!"); // Send email to water plant
         // Blynk.email("email here", "Endew Alert", "Dry plant! Water your plant!"); //uncomment for spam emails
     }
+    if (moistureLevel == minMoisture) // If moisturelevel is equal to or below min value
+    {
+        Blynk.notify("Perfect plant! Water levels are looking good!"); // Send email to water plant
+        // Blynk.email("email here", "Endew Alert", "Dry plant! Water your plant!"); //uncomment for spam emails
+    }
+    if (moistureLevel >= minMoisture) // If moisturelevel is equal to or below min value
+    {
+        Blynk.notify("Drowning plant! Too much water!"); // Send email to water plant
+        // Blynk.email("email here", "Endew Alert", "Dry plant! Water your plant!"); //uncomment for spam emails
+    }
 }
 
 void setup()
